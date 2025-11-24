@@ -42,6 +42,23 @@ export function TaskManagementPage() {
   const [showNewTaskPanel, setShowNewTaskPanel] = useState(false);
   const ITEMS_PER_PAGE = 10;
 
+  if (accessLoading) {
+    return (
+      <Layout>
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Yükleniyor...</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!hasAccess) {
+    return <NoAccessPage />;
+  }
+
   const [filters, setFilters] = useState({
     status: [] as string[],
     priority: [] as string[],
@@ -422,23 +439,6 @@ export function TaskManagementPage() {
   const inProgressCount = tasks.filter(t => t.status === 'in_progress').length;
   const pendingApprovalCount = tasks.filter(t => t.status === 'pending_approval').length;
   const closedCount = tasks.filter(t => t.status === 'completed' || t.status === 'closed').length;
-
-  if (accessLoading) {
-    return (
-      <Layout>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Yükleniyor...</p>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
-
-  if (!hasAccess) {
-    return <NoAccessPage />;
-  }
 
   if (loading) {
     return (
