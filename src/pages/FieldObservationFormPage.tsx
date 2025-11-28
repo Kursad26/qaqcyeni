@@ -929,4 +929,5 @@ export function FieldObservationFormPage({ reportId, isSidePanel = false, onClos
       </Layout>
     </ProtectedRoute>
   );
+
 }
